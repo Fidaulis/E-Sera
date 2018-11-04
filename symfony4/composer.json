@@ -8,7 +8,7 @@
         "friendsofsymfony/user-bundle": "^2.1",
         "lexik/jwt-authentication-bundle": "^2.5",
         "nelmio/cors-bundle": "^1.5",
-      "ramsey/uuid": "^3.8",
+        "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/console": "*",
         "symfony/flex": "^1.1",

@@ -1,0 +1,35 @@
+#login-container {
+  background-image: url(../../../assets/images/images.jpeg);
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+}
+@media (min-width: 600px) {
+  .login {
+    margin-top: 20%;
+    height: auto;
+  }
+}
+.login {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+  height: 100%;
+  background: rgba(255,255,255,0.9);
+  padding: 15px;
+  border-radius: 5px;
+  width: 350px;
+  height: 350px;
+  margin-left: 35%;
+}
+.login-form {
+  z-index: 99999;
+}
+img {
+  margin-left: 10%;
+  margin-top: 5%;
+}

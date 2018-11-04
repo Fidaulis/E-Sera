@@ -1,0 +1,21 @@
+mat-toolbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
+  .logo-img{
+    width: 90px;
+    height: 44px;
+    margin-right: 50px;
+  }
+  
+  .angular-logo {
+    margin: 0 4px 3px 0;
+    height: 35px;
+    vertical-align: middle;
+}
+.fill-remaining-space {
+  flex: 1 1 auto;
+}

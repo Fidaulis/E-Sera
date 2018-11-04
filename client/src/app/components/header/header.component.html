@@ -1,3 +1,23 @@
-<p>
-  header works!
-</p>
+<mat-toolbar color="accent">
+  <span>
+    <img src="" class="angular-logo">
+    E-Sera
+  </span>
+  <span class="fill-remaining-space"></span>
+  <button mat-button><h5>Acceuil</h5></button>
+  <button mat-button><h5>Contact</h5></button>
+  <button mat-button><h5>Categorie</h5></button>
+  <button mat-icon-button [matMenuTriggerFor]="menu"><h5>Connexion</h5></button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Se connecter</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>S'inscrire</span>
+    </button>
+  </mat-menu>
+  <button mat-button></button>
+  
+</mat-toolbar>

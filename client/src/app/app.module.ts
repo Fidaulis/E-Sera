@@ -17,6 +17,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AcceuilComponent } from './components/acceuil/acceuil.component';
 import {Routes, RouterModule} from '@angular/router';
+import { NewVoituresComponent } from './components/new-voitures/new-voitures.component';
 
 
 const routes:Routes=[
@@ -30,7 +31,8 @@ const routes:Routes=[
     AppComponent,
     RegisterComponent,
     HeaderComponent,
-    AcceuilComponent
+    AcceuilComponent,
+    NewVoituresComponent
   ],
   imports: [
     BrowserModule,

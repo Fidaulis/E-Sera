@@ -13,11 +13,33 @@
       <mat-form-field>
         <input type="password" matInput placeholder="Mot de passe">
       </mat-form-field><br>
-      <button class="mat-raised-button mat-primary" color="primary" mat-raised-button>
+      <div>
+        <span class="mat-checkbox">
+          <mat-checkbox
+          [value]=""
+          [checked]="isChecked"
+          (change)="onChange($event)"
+          color="primary"
+        >
+        Remember me!
+        </mat-checkbox>
+        </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href=""><span>Forgot Password</span></a>
+      </div>
+      <br>
+      <button class="mat-raised-button mat-primary" style="background-color:darkcyan;" mat-raised-button>
         <span class="mat-button-wrapper">Se connecter</span>
         <div class="mat-button-ripple mat-ripple" matripple=""></div>
         <div class="mat-button-focus-overlay"></div>
       </button>
+      <div><br>
+      <span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Not a member?
+        <a href="">Register</a>
+      </span>
+
+      </div>
     </div>
     <div class="col-4 col-md-2 hide-sm"></div>
   </div>

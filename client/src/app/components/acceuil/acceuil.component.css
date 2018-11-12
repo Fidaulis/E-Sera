@@ -1,0 +1,10 @@
+ngb-carousel {
+    margin-left:20%;
+}
+.carousel-caption {
+    left: 0;
+}
+    
+.carousel-indicators {
+    left: -15%;
+}

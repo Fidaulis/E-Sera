@@ -9,18 +9,30 @@ import {MatCardModule} from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HeaderComponent } from './components/header/header.component';
+import { AcceuilComponent } from './components/acceuil/acceuil.component';
+import {Routes, RouterModule} from '@angular/router';
+import { NewVoituresComponent } from './components/new-voitures/new-voitures.component';
 
+
+const routes:Routes=[
+  {path:'acceuil',component:AcceuilComponent},
+  {path:'contact',component:RegisterComponent},
+  {path:'',redirectTo:'/acceuil',pathMatch:'full'}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    HeaderComponent
+    HeaderComponent,
+    AcceuilComponent,
+    NewVoituresComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +47,8 @@ import { HeaderComponent } from './components/header/header.component';
     MatMenuModule,
     MatCheckboxModule,
     FormsModule,
+    NgbModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

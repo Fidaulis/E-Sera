@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Service\DefaultService;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController
@@ -11,13 +11,13 @@ class DefaultController
     /**
      * @Route("/", name="home", methods={"GET"})
      * @param DefaultService $defaultservice
-     * @return JsonResponse
+     * @return Response
      */
     public function index(
         DefaultService $defaultservice
-    ): JsonResponse {
-        return new JsonResponse([
+    ): Response {
+        return new Response(
             $defaultservice->getHomeText()
-        ]);
+        );
     }
 }

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Voiture;
 use App\Form\VoitureType;
+use Doctrine\DBAL\Schema\View;
+use PhpParser\Node\Expr\Cast\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +24,11 @@ class VoitureController extends Controller
                         ->getRepository(Voiture::class)
                         ->findAll();
 
+        if(empty($voitures)){
+        return new JsonResponse(['Message' => 'Aucune voiture enregistre pour le moment'], Response::HTTP_NOT_FOUND);
+
+        }
+
         $reponse = [];
 
         foreach ($voitures as $voiture){
@@ -37,7 +44,7 @@ class VoitureController extends Controller
 
 
         }
-        return new JsonResponse($reponse);
+        return new JsonResponse($reponse,Response::HTTP_OK, []);
     }
 
     /**
@@ -51,6 +58,10 @@ class VoitureController extends Controller
                         ->getRepository(Voiture::class)
                         ->find($request->get('id'));
 
+        if (empty($voiture)){
+
+            return new JsonResponse(["Message" =>  "Voiture non trouvé"],Response::HTTP_NOT_FOUND);
+        }
 
         $reponse[] = [
             'id'        => $voiture->getId(),
@@ -61,65 +72,68 @@ class VoitureController extends Controller
             'nombrePlace' => $voiture->getNombrePlace()
         ];
 
-        return new JsonResponse($reponse);
+        return new JsonResponse($reponse,Response::HTTP_OK, []);
 
     }
 
     /**
-     * @Route("/new", name="voiture_new", methods="GET|POST")
+     * @Route("/new_voiture", name="voiture_new", methods="POST")
      */
-    public function new(Request $request): Response
+    public function addVoitureAction(Request $request)
     {
-        $voiture = new Voiture();
+       $voiture = new Voiture();
+
+       $voiture -> setMarque($request->query->  get('marque'))
+                           -> setType          ($request->query->  get('type'))
+                           -> setCouleur       ($request->query->  get('couleur'))
+                           -> setPuissance     ($request->query->  get('puissance'))
+                           -> setNombrePlace   ($request->query->  get('nombre_place'))
+                ;
+
+       $em = $this->getDoctrine()-> getManager();
+       $em-> persist($voiture);
+       $em-> flush();
+
+        $this->redirectToRoute('voiture_lists',Response::HTTP_CREATED);
+
+    }
+
+ 
+
+    /**
+     * @Route("/voiture_update/{id}", name="voiture_edit", methods="PUT")
+     */
+    public function updateVoitureAction(Request $request, Voiture $voiture)
+    {
+        $body = $request->getContent();
+
+        $data = json_decode($body,true);
+
         $form = $this->createForm(VoitureType::class, $voiture);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($voiture);
-            $em->flush();
+        $form->submit($data);
 
-            return $this->redirectToRoute('voiture_index');
+        $validator = $this->get('validator');
+
+        $errors = $validator->validate($voiture);
+
+        if (count($errors) > 0){
+
+            $errorString = (string) $errors;
+
+            return new JsonResponse($errorString,Response::HTTP_NOT_MODIFIED);
         }
 
-        return $this->render('voiture/new.html.twig', [
-            'voiture' => $voiture,
-            'form' => $form->createView(),
-        ]);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+        return $this->redirectToRoute('voiture_lists',Response::HTTP_OK);
     }
 
     /**
-     * @Route("/{id}", name="voiture_show", methods="GET")
+     * @Route("/voiture/{id}", name="voiture_delete", methods="DELETE")
      */
-    public function show(Voiture $voiture): Response
-    {
-        return $this->render('voiture/show.html.twig', ['voiture' => $voiture]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="voiture_edit", methods="GET|POST")
-     */
-    public function edit(Request $request, Voiture $voiture): Response
-    {
-        $form = $this->createForm(VoitureType::class, $voiture);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('voiture_edit', ['id' => $voiture->getId()]);
-        }
-
-        return $this->render('voiture/edit.html.twig', [
-            'voiture' => $voiture,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="voiture_delete", methods="DELETE")
-     */
-    public function delete(Request $request, Voiture $voiture): Response
+    public function deleteAction(Request $request, Voiture $voiture)
     {
         if ($this->isCsrfTokenValid('delete'.$voiture->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
@@ -127,6 +141,6 @@ class VoitureController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('voiture_index');
+     return   $this->redirectToRoute('voiture_lists');
     }
 }

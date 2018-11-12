@@ -51,7 +51,7 @@ class Voiture
         return $this->Marque;
     }
 
-    public function setMarque(string $Marque): self
+    public function setMarque(string $Marque)
     {
         $this->Marque = $Marque;
 

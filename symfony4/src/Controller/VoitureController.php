@@ -15,8 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class VoitureController extends Controller
 {
     /**
-     * @Route("/voitures", name="voiture_lists", methods={"GET"})
-     *
+     * @Route("/api/voitures", name="voiture_lists", methods={"GET"})
+     * @param Request $request
+     * @return JsonResponse
      */
     public function getAllVoiture(Request $request) {
 
@@ -49,7 +50,9 @@ class VoitureController extends Controller
 
     /**
      *
-     * @Route("/voitures/{id}", name="voiture_one", methods={"GET"})
+     * @Route("/api/voitures/{id}", name="voiture_one", methods={"GET"})
+     * @param Request $request
+     * @return JsonResponse
      */
 
     public function getVoitureByID(Request $request){
@@ -77,7 +80,8 @@ class VoitureController extends Controller
     }
 
     /**
-     * @Route("/new_voiture", name="voiture_new", methods="POST")
+     * @Route("/api/new_voiture", name="voiture_new", methods="POST")
+     * @param Request $request
      */
     public function addVoitureAction(Request $request)
     {
@@ -101,7 +105,7 @@ class VoitureController extends Controller
  
 
     /**
-     * @Route("/voiture_update/{id}", name="voiture_edit", methods="PUT")
+     * @Route("/api/voiture_update/{id}", name="voiture_edit", methods="PUT")
      */
     public function updateVoitureAction(Request $request, Voiture $voiture)
     {
@@ -131,7 +135,10 @@ class VoitureController extends Controller
     }
 
     /**
-     * @Route("/voiture/{id}", name="voiture_delete", methods="DELETE")
+     * @Route("/api/voiture/{id}", name="voiture_delete", methods="DELETE")
+     * @param Request $request
+     * @param Voiture $voiture
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Voiture $voiture)
     {

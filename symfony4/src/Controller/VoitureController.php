@@ -6,20 +6,22 @@ use App\Entity\Voiture;
 use App\Form\VoitureType;
 use Doctrine\DBAL\Schema\View;
 use PhpParser\Node\Expr\Cast\String_;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Tests\Fixtures\AnnotationFixtures\AbstractClassController;
 
-class VoitureController extends Controller
+class VoitureController extends AbstractClassController
 {
     /**
-     * @Route("/api/voitures", name="voiture_lists", methods={"GET"})
-     * @param Request $request
+     * @Route("api/voitures", name="voitures_list", methods={"GET"})
+     *
+     *
      * @return JsonResponse
      */
-    public function getAllVoiture(Request $request) {
+    public function getAllVoiture() {
+
 
         $voitures = $this->get('doctrine.orm.entity_manager')
                         ->getRepository(Voiture::class)
